@@ -10,8 +10,22 @@ module.exports = function(grunt) {
       },
     },
 
+    requirejs: {
+      development: {
+        options: {
+          baseUrl: './js/dev/',
+          include: 'index',
+          mainConfigFile: './js/dev/index.js',
+          name: '../../node_modules/almond/almond',
+          optimize: 'none',
+          out: './js/dist/main.js',
+          wrap: true,
+        },
+      },
+    },
+
     watch: {
-      stlyes: {
+      styles: {
         files: [
           './less/**/*.less',
         ],
@@ -23,14 +37,24 @@ module.exports = function(grunt) {
           spawn: false,
         },
       },
+
+      js: {
+        files: [
+          './js/dev/*.js',
+        ],
+        tasks: [
+          'requirejs',
+        ],
+        options: {
+          atBegin: true,
+          spawn: false,
+        },
+      }
     },
   });
 
   grunt.registerTask('default', [
     'less',
-  ]);
-
-  grunt.registerTask('watch', [
-    'watch',
+    'requirejs',
   ]);
 };

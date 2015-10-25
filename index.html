@@ -2,6 +2,9 @@
 <html>
   <head>
     <title>FriendsWatch.net</title>
+
+    <meta charset="utf-8" />
+
     <link rel="stylesheet"
           href="./css/main.css"
           media="screen" />
@@ -14,7 +17,11 @@
       <!-- Intro & Facebook Login -->
       <div class="frame">
         <div class="fullscreen-video"></div>
-        <div class="login"></div>
+        <div class="login">
+          <fb:login-button scope="public_profile,email"
+                           onlogin="checkLoginState();">
+          </fb:login-button>
+        </div>
       </div>
 
       <!-- Face of the Fly -->
@@ -28,6 +35,8 @@
       </div>
 
     </div>
+
+    <script src="./js/dist/main.js"></script>
 
   </body>
 </html>
