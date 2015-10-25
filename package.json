@@ -1,0 +1,27 @@
+{
+  "name": "hackadok-leipzig-2015",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavpursche/hackadok-leipzig-2015.git"
+  },
+  "author": "Gustav Pursche <pursche@posteo.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gustavpursche/hackadok-leipzig-2015/issues"
+  },
+  "homepage": "https://github.com/gustavpursche/hackadok-leipzig-2015#readme",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt-contrib-less": "^1.0.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.3.0"
+  }
+}
