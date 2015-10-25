@@ -13,10 +13,14 @@ module.exports = function(grunt) {
     requirejs: {
       development: {
         options: {
-          baseUrl: './js/dev/',
-          include: 'index',
-          mainConfigFile: './js/dev/index.js',
-          name: '../../node_modules/almond/almond',
+          baseUrl: 'js/dev/',
+          include: [
+            'frame',
+            'frame-1',
+            'index',
+          ],
+          mainConfigFile: 'js/dev/index.js',
+          name: '../../node_modules/requirejs/require',
           optimize: 'none',
           out: './js/dist/main.js',
           wrap: true,

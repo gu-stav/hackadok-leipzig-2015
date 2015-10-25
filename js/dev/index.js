@@ -1,9 +1,15 @@
 require.config({
+  baseUrl: 'js/dist/',
   paths: {
+    'facebook': 'https://connect.facebook.net/en_US/sdk',
     'jquery': '../../node_modules/jquery/dist/jquery',
+    'lodash': '../../node_modules/lodash/index',
   },
 
   shim: {
+    'facebook': {
+      exports: 'FB'
+    },
     'jquery': {
       exports: '$',
     },
@@ -12,20 +18,41 @@ require.config({
 });
 
 require([
+  'lodash',
   'jquery',
-  'frame',
-], function($, Frame) {
+  'timeline',
+], function(_, $, Timeline) {
+  window.timeline = new Timeline();
+
   $(function() {
     var $frames = $('.frame');
-    var initFrame = function(index) {
-      var $frame = $(this);
-      var frame = new Frame($frame);
+    var initFrame = function(el, index) {
+      var $frame = $(el);
+      var initData = $frame.data('init');
+      var init = initData ? ('-' + initData) : '';
+      var id = _.uniqueId();
 
-      if(index === 0) {
-        frame.activate();
-      }
+      require([
+        'frame' + init,
+      ], function(Frame) {
+        var frame = new Frame($frame);
+
+        frame.ID = parseInt(id, 10);
+        timeline.add(frame);
+
+        if(index === 0) {
+          frame.activate();
+        }
+
+        frame.$el.on('end.frame', function(e) {
+          var next = timeline.where({ID: frame.ID + 1});
+
+          next.activate();
+          frame.deactivate();
+        });
+      });
     };
 
-    $.each($frames, initFrame);
+    _.forEach($frames, initFrame);
   });
 });
