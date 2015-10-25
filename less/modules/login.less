@@ -1,7 +1,30 @@
 .login {
   left: 50%;
   position: absolute;
+  text-align: center;
   top: 50%;
   transform: translate(-50%);
   z-index: 10;
+
+  &__teaser {
+    color: rgb(255, 255, 255);
+    font-family: Georgia, serif;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  &__headline {
+    color: rgb(255, 255, 255);
+    font-family: Arial, sans-serif;
+    margin: 0 0 .3rem 0;
+  }
+
+  &__button {
+    background: #4E69A2;
+    border: none;
+    border-top: 2px solid darken(#4E69A2, 10%);
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    padding: .6rem 2rem;
+  }
 }

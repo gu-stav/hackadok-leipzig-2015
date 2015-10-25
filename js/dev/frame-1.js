@@ -19,6 +19,7 @@ define([
     });
 
     var $loginButton = this.$el.find('.login__button');
+    var $video = this.$el.find('.login__video');
 
     var loginUser = function(event) {
       event.preventDefault();
@@ -26,8 +27,12 @@ define([
       FB.login(function(res) {
         var loginStatus = res.status === 'connected' ? true : false;
 
-        if(/*loginStatus ===*/ true) {
-          self.$el.trigger('end.frame');
+        if(loginStatus === true) {
+          self.facebookLogin = true;
+
+          if(self.videoEnd) {
+            self.$el.trigger('end.frame');
+          }
         }
       }, {
           scope: 'publish_actions',
@@ -35,7 +40,21 @@ define([
       });
     };
 
+    var saveEndOfVideo = function(e) {
+      self.videoEnd = true;
+
+      if(self.facebookLogin) {
+        self.$el.trigger('end.frame');
+      }
+    };
+
+    if($video.length) {
+      $video.get(0).play();
+    }
+
     $loginButton.on('click.frame', loginUser);
+    $video.on('ended', saveEndOfVideo);
+
     return BaseFrame.prototype.activate.apply(this, arguments);
   };
 
