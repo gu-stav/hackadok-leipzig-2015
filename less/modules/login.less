@@ -61,4 +61,21 @@
     vertical-align: middle;
     width: 20px;
   }
+
+  &__messages {
+    bottom: 0;
+    display: none;
+    left: 50%;
+    opacity: 1;
+    padding: 1.5rem;
+    position: absolute;
+    transition: opacity 2s;
+    transform: translateX(-50%);
+    width: 15rem;
+    z-index: 100;
+
+    &--visible {
+      display: block;
+    }
+  }
 }

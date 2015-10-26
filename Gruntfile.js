@@ -17,6 +17,7 @@ module.exports = function(grunt) {
           include: [
             'api',
             'data/places',
+            'debug',
             'frame',
             'frame-1',
             'frame-2',

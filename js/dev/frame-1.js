@@ -1,8 +1,9 @@
 define([
   'api',
+  'debug',
   'frame',
   'facebook',
-], function(api, BaseFrame, FB) {
+], function(api, debug, BaseFrame, FB) {
   var Frame = function() {
     return BaseFrame.prototype._init.apply(this, arguments);
   };
@@ -12,8 +13,10 @@ define([
 
   Frame.prototype.activate = function() {
     var self = this;
+    var $login = $('.login');
     var $loginButton = this.$el.find('.login__button');
     var $video = this.$el.find('.login__video');
+    var $messages = this.$el.find('.login__messages');
 
     var saveEndOfVideo = function(e) {
       self.videoEnd = true;
@@ -27,6 +30,24 @@ define([
       event.preventDefault();
 
       api.login()
+        .then(function(data) {
+          $messages
+            .css({
+              bottom: 0,
+            })
+            .addClass('login__messages--visible');
+          $login.remove();
+          return debug($messages)
+            .then(function() {
+              $messages.css({
+                opacity: 0,
+              });
+              return data;
+            });
+        })
+        .then(function(data) {
+          return data;
+        })
         .then(function(data) {
           if($video.length) {
             $video.get(0).play();
