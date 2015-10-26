@@ -1,10 +1,15 @@
 .frame {
   display: none;
+  height: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 
   &--active {
     display: block;
   }
+}
+
+.frame[data-init="2"] {
+  background-color: black;
 }

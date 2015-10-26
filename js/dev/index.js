@@ -1,6 +1,8 @@
 require.config({
   baseUrl: 'js/dist/',
   paths: {
+    'bluebird': '../../node_modules/bluebird/js/browser/bluebird',
+    'data': '../../data',
     'facebook': 'https://connect.facebook.net/en_US/sdk',
     'jquery': '../../node_modules/jquery/dist/jquery',
     'lodash': '../../node_modules/lodash/index',
@@ -48,7 +50,9 @@ require([
           var next = timeline.where({ID: frame.ID + 1});
 
           next.activate();
-          frame.deactivate();
+          setTimeout(function() {
+            frame.deactivate();
+          }, 500);
         });
       });
     };

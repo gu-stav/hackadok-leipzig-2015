@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gustavpursche/hackadok-leipzig-2015#readme",
   "dependencies": {
+    "bluebird": "^2.10.2",
     "grunt": "^0.4.5",
     "jquery": "^2.1.4",
     "normalize.css": "^3.0.3",

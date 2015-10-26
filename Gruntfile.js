@@ -15,9 +15,13 @@ module.exports = function(grunt) {
         options: {
           baseUrl: 'js/dev/',
           include: [
+            'api',
+            'data/places',
             'frame',
             'frame-1',
+            'frame-2',
             'index',
+            'questions',
           ],
           mainConfigFile: 'js/dev/index.js',
           name: '../../node_modules/requirejs/require',

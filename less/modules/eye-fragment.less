@@ -1,0 +1,73 @@
+@keyframes neonspark {
+	0% {
+		opacity: .2;
+	}
+
+  2% {
+		opacity: 1;
+	}
+
+  10% {
+    opacity: .2;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  22% {
+    opacity: .2;
+  }
+
+  28% {
+    opacity: .2;
+  }
+
+	40% {
+		opacity: 1;
+	}
+	60% {
+		opacity: .2;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: .2;
+	}
+}
+
+.eye-fragment {
+  background-color: #1B1B1B;
+  display: inline-block;
+  height: 55px;
+  overflow: hidden;
+  width: 55px;
+
+  &__content {
+    img {
+      cursor: pointer;
+      height: auto;
+      opacity: .7;
+      transform: opacity .2s;
+      width: 100%;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    img.status--flicker-2 {
+      animation: neonspark 2s 1s infinite;
+    }
+
+    img.status--flicker-3 {
+      animation: neonspark 3s ease-in infinite;
+    }
+
+    img.status--flicker-7 {
+      animation: neonspark 7s linear infinite;
+    }
+  }
+}
+

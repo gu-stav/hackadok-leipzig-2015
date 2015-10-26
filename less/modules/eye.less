@@ -1,0 +1,18 @@
+.eye {
+  background-color: blue;
+  float: left;
+  height: 100%;
+  width: 50%;
+
+  &__row {
+    line-height: 0;
+    font-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &--left &__row {
+    background-color: green;
+    text-align: right;
+  }
+}

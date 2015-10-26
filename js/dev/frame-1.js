@@ -1,7 +1,8 @@
 define([
+  'api',
   'frame',
   'facebook',
-], function(BaseFrame, FB) {
+], function(api, BaseFrame, FB) {
   var Frame = function() {
     return BaseFrame.prototype._init.apply(this, arguments);
   };
@@ -11,34 +12,8 @@ define([
 
   Frame.prototype.activate = function() {
     var self = this;
-
-    FB.init({
-      appId: '879156412199142',
-      xfbml: false,
-      version: 'v2.5'
-    });
-
     var $loginButton = this.$el.find('.login__button');
     var $video = this.$el.find('.login__video');
-
-    var loginUser = function(event) {
-      event.preventDefault();
-
-      FB.login(function(res) {
-        var loginStatus = res.status === 'connected' ? true : false;
-
-        if(loginStatus === true) {
-          self.facebookLogin = true;
-
-          if(self.videoEnd) {
-            self.$el.trigger('end.frame');
-          }
-        }
-      }, {
-          scope: 'publish_actions',
-          return_scopes: true
-      });
-    };
 
     var saveEndOfVideo = function(e) {
       self.videoEnd = true;
@@ -48,11 +23,25 @@ define([
       }
     };
 
-    if($video.length) {
-      $video.get(0).play();
-    }
+    $loginButton.on('click.frame', function(event) {
+      event.preventDefault();
 
-    $loginButton.on('click.frame', loginUser);
+      api.login()
+        .then(function(data) {
+          if($video.length) {
+            $video.get(0).play();
+          }
+
+          if(data.status === true) {
+            self.facebookLogin = true;
+          }
+
+          if(self.videoEnd) {
+            self.$el.trigger('end.frame');
+          }
+        });
+    });
+
     $video.on('ended', saveEndOfVideo);
 
     return BaseFrame.prototype.activate.apply(this, arguments);

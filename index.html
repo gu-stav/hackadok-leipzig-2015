@@ -17,7 +17,7 @@
       <!-- Intro & Facebook Login -->
       <div class="frame"
            data-init="1">
-        <video class="login__video fullscreen-video">
+        <video class="login__video" muted>
           <source src="/assets/intro.mp4"
                   type="video/mp4" />
         </video>
@@ -31,8 +31,12 @@
       </div>
 
       <!-- Face of the Fly -->
-      <div class="frame">
-        <div class="fly-face"></div>
+      <div class="frame"
+           data-init="2">
+        <div class="fly-face">
+          <img src="./assets/eye-seperator.png"
+               class="fly-face__seperator" />
+        </div>
       </div>
 
       <!-- Outro -->
