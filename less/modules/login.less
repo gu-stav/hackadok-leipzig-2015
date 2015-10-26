@@ -3,7 +3,7 @@
   position: absolute;
   text-align: center;
   top: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
   z-index: 10;
 
   &__video {
@@ -14,27 +14,34 @@
   }
 
   &__teaser {
-    color: #333;
-    font-family: Georgia, serif;
-    font-size: 1.1rem;
+    border-top: 1px solid #D5D5D5;
+    color: #6F6F6F;
+    font-family: 'Source Code Pro', 'sans-serif';
+    font-size: 1.2rem;
+    font-weight: 400;
     line-height: 1.4;
+    margin: 1rem 0 2.5rem 0;
+    padding: 1rem 0 0 0;
   }
 
   &__headline {
     color: #333;
-    font-family: Arial, sans-serif;
-    margin: 0 0 .3rem 0;
+    font-family: 'Source Code Pro', 'sans-serif';
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
   }
 
   &__button {
     background: #4E69A2;
     border: none;
     border-top: 2px solid darken(#4E69A2, 10%);
-    border-radius: 2px;
+    border-radius: 3px;
     color: rgb(255, 255, 255);
-    font-size: .9rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    padding: .6rem 2rem;
+    padding: .8rem 1.5rem;
 
     &:hover,
     &:focus {
@@ -46,5 +53,12 @@
       background: darken(#4E69A2, 10%);
       border-top: 2px solid darken(#4E69A2, 20%);
     }
+  }
+
+  &__button-icon {
+    height: auto;
+    margin-right: .3rem;
+    vertical-align: middle;
+    width: 20px;
   }
 }
