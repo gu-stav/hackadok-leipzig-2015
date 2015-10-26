@@ -39,11 +39,12 @@ define([
           $login.remove();
           return debug($messages)
             .then(function() {
+              /* Give them at least a bit of time, to read it */
               setTimeout(function() {
                 $messages.css({
                   opacity: 0,
                 });
-              }, 1000);
+              }, 400);
               return data;
             });
         })
