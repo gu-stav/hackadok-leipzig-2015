@@ -37,6 +37,5 @@ define(function() {
     'Access Outbox',
     'Access Unpublished posts',
     'Access Inner thoughts',
-    '<strong>Finished</strong> ...',
   ];
 });

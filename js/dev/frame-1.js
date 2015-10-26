@@ -39,9 +39,11 @@ define([
           $login.remove();
           return debug($messages)
             .then(function() {
-              $messages.css({
-                opacity: 0,
-              });
+              setTimeout(function() {
+                $messages.css({
+                  opacity: 0,
+                });
+              }, 1000);
               return data;
             });
         })

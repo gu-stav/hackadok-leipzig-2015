@@ -76,6 +76,9 @@ define([
         var dataset = question.data;
         var before_delay = question.before_delay;
         var after_delay = question.after_delay;
+        var after = question.after;
+        var before = question.before;
+        var content = question.content;
 
         var getAudioPlayer = function(id) {
           var markup = '<audio src="/assets/question-' + id + '.mp3"' +
@@ -94,6 +97,10 @@ define([
                 return resolve();
               }
 
+              if(after) {
+                after(eyeLeft, eyeRight);
+              }
+
               setTimeout(function() {
                 resolve();
               }, after_delay);
@@ -110,6 +117,14 @@ define([
             }, before_delay);
           } else {
             addPlayer();
+          }
+
+          if(before) {
+            before(eyeLeft, eyeRight);
+          }
+
+          if(content) {
+            content(eyeLeft, eyeRight, dataset);
           }
         });
       });
