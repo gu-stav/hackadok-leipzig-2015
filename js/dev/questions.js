@@ -2,16 +2,16 @@ define([
   'lodash',
 ], function(_) {
   var renderer = {
-    textnode: function(item) {
+    textnode: function(item, $el) {
       var markup = '';
 
       markup += '<div class="eye-fragment__question-content">';
-      markup += '<p class="eye-fragment__question-content-item">' + item + '</p>';
+        markup += '<p class="eye-fragment__question-content-item">' + item + '</p>';
       markup += '</div>';
 
       return markup;
     },
-    arraylist: function(item) {
+    arraylist: function(item, $el) {
       var markup = '';
 
       markup += '<div class="eye-fragment__question-content">';
@@ -24,7 +24,7 @@ define([
 
       return markup;
     },
-    objectitem: function(item) {
+    objectitem: function(item, $el) {
       var markup = '';
 
       markup += '<div class="eye-fragment__question-content">';
@@ -35,6 +35,14 @@ define([
 
         if(item.subheadline) {
           markup += '<small class="eye-fragment__question-content-subheadline">' + item.subheadline + '</small>';
+        }
+
+        if(item.image) {
+          var $image = $el.children('.eye-fragment__content').children('img');
+
+          $image.attr({
+            src: '/assets/fragment/' + item.image + '.png',
+          });
         }
 
       markup += '</div>';
@@ -52,14 +60,14 @@ define([
 
         if(_.isArray(data)) {
           if(data.length === 1) {
-            markup = renderer.textnode(data[0]);
+            markup = renderer.textnode(data[0], $el);
           } else {
-            markup = renderer.arraylist(data);
+            markup = renderer.arraylist(data, $el);
           }
         } else if(_.isObject(data)) {
-          markup = renderer.objectitem(data);
+          markup = renderer.objectitem(data, $el);
         } else if(typeof data === 'string') {
-          markup = renderer.textnode(data);
+          markup = renderer.textnode(data, $el);
         }
 
         $el.append(markup);
@@ -118,12 +126,12 @@ define([
   };
 
   return [
-    // {
-    //   "id": "1",
-    //   "data": "place",
-    //   "before_delay": 500,
-    //   "after_delay": 0,
-    // },
+    {
+      "id": "1",
+      "data": "place",
+      "before_delay": 500,
+      "after_delay": 0,
+    },
     {
       "id": "2",
       "data": "birthday",
