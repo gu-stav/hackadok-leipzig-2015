@@ -113,6 +113,7 @@ define([
             .appendTo('body');
         };
 
+        console.log('sound id', id);
         console.log('require dataset', dataset);
 
         require([
@@ -139,7 +140,6 @@ define([
       /* Questions - Flow */
       .then(questionsFlow)
       .then(function() {
-        console.log('end frame 2');
         self.$el.trigger('end.frame');
       });
 
