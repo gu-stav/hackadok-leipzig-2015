@@ -1,0 +1,27 @@
+define(function() {
+  return [
+    'Krakow, Poland',
+    'HarbourView Hotel',
+    'Broadway Cinema, Bristol',
+    'Beriln, Hauptbahnhof',
+    'Warsaw Chopin Airport',
+    'NOSPR Katowice, Poland',
+    'Marigot Bay Beach',
+    'San Gimignano, Toscana, Italy',
+    'Warsaw Old Town',
+    'The Wright Venue, Dublin',
+    'Café Anno 1890, Amsterdam',
+    'Polski Bus, Poland',
+    'Tralalala Cafe, Warsaw',
+    'Plan B, Warsaw',
+    'Music Performance by Kuba S., Ostrowiec Swietokrzyski',
+    'Barbican Center, London',
+    'London Luton Airport',
+    'Portinho Da Arrábida',
+    'New Englad Aquarium',
+    'Bostol Loghan Airport',
+    'Hyatt Regency Trinidad',
+    'Mexico City',
+    'Hintertuxer Gletscher',
+  ];
+});

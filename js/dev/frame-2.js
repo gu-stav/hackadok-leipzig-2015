@@ -13,6 +13,7 @@ define([
   Frame.prototype.constructor = BaseFrame;
 
   Frame.prototype.activate = function() {
+    var self = this;
     var eyeLeft = new Eye({position: 'left'});
     var eyeRight = new Eye({position: 'right'});
 
@@ -53,20 +54,17 @@ define([
     };
 
     var questionsFlow = function() {
-      var timeout = 1000;
-
       return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-          require([
-            'questions',
-          ], function(questions) {
-            Bluebird
-              .each(questions, playQuestion)
-              .then(function() {
-                resolve();
-              });
-          });
-        }, timeout);
+        require([
+          'questions',
+        ], function(questions) {
+          Bluebird
+            .each(questions, playQuestion)
+            .then(function() {
+              console.log('end soundloop');
+              resolve();
+            });
+        });
       });
     };
 
@@ -75,10 +73,11 @@ define([
         var id = question.id;
         var dataset = question.data;
         var before_delay = question.before_delay;
-        var after_delay = question.after_delay;
+        var after_delay = question.after_delay || 0;
         var after = question.after;
         var before = question.before;
         var content = question.content;
+        var before_offset = question.before_offset || 0;
 
         var getAudioPlayer = function(id) {
           var markup = '<audio src="/assets/question-' + id + '.mp3"' +
@@ -88,43 +87,43 @@ define([
           return $(markup);
         };
 
-        var addPlayer = function() {
+        var initializePlayer = function(data) {
           var $player = getAudioPlayer(id);
+
+          if(before) {
+            setTimeout(function() {
+              before(eyeLeft, eyeRight);
+            }, before_offset);
+          }
+
+          if(content) {
+            content(eyeLeft, eyeRight, data);
+          }
 
           $player
             .on('ended', function() {
-              if(!after_delay) {
-                return resolve();
-              }
-
-              if(after) {
-                after(eyeLeft, eyeRight);
-              }
-
               setTimeout(function() {
+                if(after) {
+                  after(eyeLeft, eyeRight);
+                }
+
                 resolve();
               }, after_delay);
             })
             .appendTo('body');
         };
 
+        console.log('require dataset', dataset);
+
         require([
           'data/' + dataset,
-        ], function(dataset) {
+        ], function(data) {
           if(before_delay) {
             setTimeout(function() {
-              addPlayer();
+              initializePlayer(data);
             }, before_delay);
           } else {
-            addPlayer();
-          }
-
-          if(before) {
-            before(eyeLeft, eyeRight);
-          }
-
-          if(content) {
-            content(eyeLeft, eyeRight, dataset);
+            initializePlayer(data);
           }
         });
       });
@@ -138,7 +137,11 @@ define([
       .then(feedEyesWithPictures)
 
       /* Questions - Flow */
-      .then(questionsFlow);
+      .then(questionsFlow)
+      .then(function() {
+        console.log('end frame 2');
+        self.$el.trigger('end.frame');
+      });
 
     return BaseFrame.prototype.activate.apply(this, arguments);
   };

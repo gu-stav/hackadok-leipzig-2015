@@ -42,7 +42,7 @@ require([
         frame.ID = parseInt(id, 10);
         timeline.add(frame);
 
-        if(index === 0) {
+        if(index === 2) {
           frame.activate();
         }
 
