@@ -139,7 +139,15 @@ define([
       /* Questions - Flow */
       .then(questionsFlow)
       .then(function() {
-        self.$el.trigger('end.frame');
+
+        self.$el.css({
+          transition: 'opacity 400ms ease-in-out',
+          opacity: 0,
+        });
+
+        setTimeout(function() {
+          self.$el.trigger('end.frame');
+        }, 200);
       });
 
     return BaseFrame.prototype.activate.apply(this, arguments);

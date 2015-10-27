@@ -39,10 +39,13 @@ define([
 
         if(item.image) {
           var $image = $el.children('.eye-fragment__content').children('img');
+          var srcAttr = $image.attr('src');
 
-          $image.attr({
-            src: '/assets/fragment/' + item.image + '.png',
-          });
+          $image
+            .attr({
+              src: '/assets/fragment/' + item.image + '.png',
+            })
+            .data('origimage', srcAttr);
         }
 
       markup += '</div>';
@@ -80,18 +83,19 @@ define([
   var modifyContentRenderer = function(eyeLeft, eyeRight, dataset, id) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
       var modifyFragmentSyle = function(fragment) {
+        var $el = fragment.$el;
         var data = _.sample(dataset);
         var markup;
 
         if(_.isArray(data)) {
           markup = renderer.arraylist(data);
         } else if(_.isObject(data)) {
-          markup = renderer.objectitem(data);
+          markup = renderer.objectitem(data, $el);
         } else if(typeof data === 'string') {
           markup = renderer.textnode(data);
         }
 
-        fragment.$el
+        $el
           .find('.eye-fragment__question-content')
             .remove()
             .end()
@@ -105,7 +109,19 @@ define([
   var cleanupStage = function(eyeLeft, eyeRight) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
       var modifyFragmentSyle = function(fragment) {
-        fragment.$el
+        var $el = fragment.$el;
+        var $image = $el.children('.eye-fragment__content').children('img');
+
+        /* Reset profile image */
+        if($image.data('origimage')) {
+          $image.attr({
+            src: $image.data('origimage'),
+          });
+
+          $image.data('origimage', undefined);
+        }
+
+        $el
           .attr({
             'class': 'eye-fragment',
           });
@@ -220,9 +236,12 @@ define([
     },
     {
       "id": "13",
-      "data": "place",
+      "data": "place-location-image",
       "before_delay": 0,
       "after_delay": 0,
+      "before_offset": 1100,
+      "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
@@ -230,14 +249,14 @@ define([
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
-      "content": modifyContentRenderer,
+      "content": contentRenderer,
       "after": cleanupStage,
     },
     {
       "id": "15",
       "data": "place",
       "before_delay": 0,
-      "after_delay": 3000,
+      "after_delay": 0,
     },
     {
       "id": "16",
@@ -250,6 +269,25 @@ define([
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
+      /* Add some buzz by removing the profile images */
+      "before": function(eyeLeft, eyeRight, id) {
+        _.forEach([eyeLeft, eyeRight], function(eye) {
+          var modifyFragmentSyle = function(fragment) {
+            var $target = fragment.$el;
+            var timeout = Math.random() * 1000;
+
+            setTimeout(function() {
+              $target.css({
+                'opacity': 0,
+              });
+            }, timeout);
+          };
+
+          _.forEach(eye.fragments, modifyFragmentSyle);
+        });
+
+        prepareStage(eyeLeft, eyeRight, id);
+      },
     },
   ];
 });

@@ -23,6 +23,7 @@ module.exports = function(grunt) {
             'data/movie',
             'data/music',
             'data/place',
+            'data/place-location-image',
             'debug',
             'frame',
             'frame-1',

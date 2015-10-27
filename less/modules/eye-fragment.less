@@ -75,7 +75,8 @@
 	&--question-2,
   &--question-3,
   &--question-4,
-  &--question-5 {
+  &--question-5,
+  &--question-13 {
     border: 1px solid #2B2B2B;
     margin: -1px 0 0 -1px;
 		opacity: 1;
@@ -87,15 +88,23 @@
 	&--question-2 &__content img,
   &--question-2 &__content img,
   &--question-4 &__content img,
-  &--question-5 &__content img  {
+  &--question-5 &__content img,
+  &--question-13 &__content img,
+  &--question-17 &__content img  {
 		animation: none;
 		filter: none;
 	}
 
+  &--question-13 &__content img {
+    max-height: 55px;
+    max-width: 55px;
+  }
+
 	&--question-2 img,
   &--question-3 img,
   &--question-4 img,
-  &--question-5 img {
+  &--question-5 img,
+  &--question-13 img {
 		margin-right: .3rem;
 		width: auto;
 	}
