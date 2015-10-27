@@ -30,15 +30,15 @@ define([
           if(url) {
             var cssAddon = 'class="status--flicker"';
 
-            if(Math.random() < 0.6) {
+            if(Math.random() < 0.5) {
               cssAddon = 'class="status--flicker-7"';
             }
 
-            if(Math.random() < 0.3) {
+            if(Math.random() < 0.2) {
               cssAddon = 'class="status--flicker-3"';
             }
 
-            if(Math.random() < 0.2) {
+            if(Math.random() < 0.1) {
               cssAddon = 'class="status--flicker-2"';
             }
 
