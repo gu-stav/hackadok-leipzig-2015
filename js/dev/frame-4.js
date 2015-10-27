@@ -19,7 +19,7 @@ define([
         FB.ui(
           {
             method: 'share',
-            href: 'https://immersion.media.mit.edu',
+            href: 'http://gustavpursche.github.io/hackadok-leipzig-2015/',
           },
           function(response) {
             if (response && !response.error_message) {
