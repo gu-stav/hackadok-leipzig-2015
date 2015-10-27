@@ -60,8 +60,8 @@ define([
         ], function(questions) {
           Bluebird
             .each(questions, playQuestion)
+            /* This is the end of the soundloop */
             .then(function() {
-              console.log('end soundloop');
               resolve();
             });
         });
@@ -79,52 +79,49 @@ define([
         var content = question.content;
         var before_offset = question.before_offset || 0;
 
-        var getAudioPlayer = function(id) {
-          var markup = '<audio src="/assets/question-' + id + '.mp3"' +
-                       'autoplay' +
-                       '></audio>';
-
-          return $(markup);
-        };
-
-        var initializePlayer = function(data) {
-          var $player = getAudioPlayer(id);
+        var initializePlayer = function(data, id) {
+          var playerMarkup = '<audio src="/assets/question-' + id + '.mp3"' +
+                             'autoplay' +
+                             '></audio>';
+          var $player = $(playerMarkup);
 
           if(before) {
             setTimeout(function() {
-              before(eyeLeft, eyeRight);
+              before(eyeLeft, eyeRight, id);
             }, before_offset);
           }
 
           if(content) {
-            content(eyeLeft, eyeRight, data);
+            content(eyeLeft, eyeRight, data, id);
           }
 
           $player
             .on('ended', function() {
               setTimeout(function() {
                 if(after) {
-                  after(eyeLeft, eyeRight);
+                  after(eyeLeft, eyeRight, id);
                 }
 
                 resolve();
               }, after_delay);
-            })
+            });
+
+          $player
             .appendTo('body');
         };
 
-        console.log('sound id', id);
-        console.log('require dataset', dataset);
+        console.log('Sound ID', id);
+        console.log('Require Dataset', dataset);
 
         require([
           'data/' + dataset,
         ], function(data) {
           if(before_delay) {
             setTimeout(function() {
-              initializePlayer(data);
+              initializePlayer(data, id);
             }, before_delay);
           } else {
-            initializePlayer(data);
+            initializePlayer(data, id);
           }
         });
       });

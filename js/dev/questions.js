@@ -11,7 +11,7 @@ define([
 
       return markup;
     },
-    araylist: function(item) {
+    arraylist: function(item) {
       var markup = '';
 
       markup += '<div class="eye-fragment__question-content">';
@@ -27,25 +27,35 @@ define([
     objectitem: function(item) {
       var markup = '';
 
-      markup += '<div class="eye-fragment__question-content">'
-        markup += '<strong class="eye-fragment__question-content-headline">' + item.headline + '</strong>';
-        markup += '<small class="eye-fragment__question-content-subheadline">' + item.subheadline + '</small>';
+      markup += '<div class="eye-fragment__question-content">';
+
+        if(item.headline) {
+          markup += '<strong class="eye-fragment__question-content-headline">' + item.headline + '</strong>';
+        }
+
+        if(item.subheadline) {
+          markup += '<small class="eye-fragment__question-content-subheadline">' + item.subheadline + '</small>';
+        }
+
       markup += '</div>';
 
       return markup;
     },
   };
 
-  var contentRenderer = function(eyeLeft, eyeRight, dataset) {
+  var contentRenderer = function(eyeLeft, eyeRight, dataset, id) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
-      var fragments = eye.fragments;
       var modifyFragmentSyle = function(fragment) {
         var $el = fragment.$el;
         var data = _.sample(dataset);
         var markup;
 
         if(_.isArray(data)) {
-          markup = renderer.arraylist(data);
+          if(data.length === 1) {
+            markup = renderer.textnode(data[0]);
+          } else {
+            markup = renderer.arraylist(data);
+          }
         } else if(_.isObject(data)) {
           markup = renderer.objectitem(data);
         } else if(typeof data === 'string') {
@@ -55,15 +65,13 @@ define([
         $el.append(markup);
       };
 
-      _.forEach(fragments, modifyFragmentSyle);
+      _.forEach(eye.fragments, modifyFragmentSyle);
     });
   };
 
-  var modifyContentRenderer = function(eyeLeft, eyeRight, dataset) {
+  var modifyContentRenderer = function(eyeLeft, eyeRight, dataset, id) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
-      var fragments = eye.fragments;
       var modifyFragmentSyle = function(fragment) {
-        var $el = fragment.$el;
         var data = _.sample(dataset);
         var markup;
 
@@ -75,40 +83,37 @@ define([
           markup = renderer.textnode(data);
         }
 
-        $el
+        fragment.$el
           .find('.eye-fragment__question-content')
             .remove()
             .end()
           .append(markup);
       };
 
-      _.forEach(fragments, modifyFragmentSyle);
+      _.forEach(eye.fragments, modifyFragmentSyle);
     });
   };
 
   var cleanupStage = function(eyeLeft, eyeRight) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
-      var fragments = eye.fragments;
       var modifyFragmentSyle = function(fragment) {
-        var $el = fragment.$el;
-
-        $el.removeClass('eye-fragment--question-1');
+        fragment.$el
+          .attr({
+            'class': 'eye-fragment',
+          });
       };
 
-      _.forEach(fragments, modifyFragmentSyle);
+      _.forEach(eye.fragments, modifyFragmentSyle);
     });
   };
 
-  var prepareStage = function(eyeLeft, eyeRight) {
+  var prepareStage = function(eyeLeft, eyeRight, id) {
     _.forEach([eyeLeft, eyeRight], function(eye) {
-      var fragments = eye.fragments;
       var modifyFragmentSyle = function(fragment) {
-        var $el = fragment.$el;
-
-        $el.addClass('eye-fragment--question-1');
+        fragment.$el.addClass('eye-fragment--question-' + id);
       };
 
-      _.forEach(fragments, modifyFragmentSyle);
+      _.forEach(eye.fragments, modifyFragmentSyle);
     });
   };
 
@@ -121,7 +126,7 @@ define([
     },
     {
       "id": "2",
-      "data": "place",
+      "data": "birthday",
       "before_delay": 500,
       "after_delay": 0,
       "before_offset": 500,
@@ -130,14 +135,14 @@ define([
     },
     {
       "id": "3",
-      "data": "place",
+      "data": "book",
       "before_delay": 0,
       "after_delay": 0,
-      "content": contentRenderer,
+      "content": modifyContentRenderer,
     },
     {
       "id": "4",
-      "data": "place",
+      "data": "movie",
       "before_delay": 0,
       "after_delay": 0,
       "content": modifyContentRenderer,
@@ -209,7 +214,7 @@ define([
       "id": "14",
       "data": "place",
       "before_delay": 0,
-      "after_delay": 0,
+      "after_delay": 3000,
       "content": modifyContentRenderer,
       "after": cleanupStage,
     },
