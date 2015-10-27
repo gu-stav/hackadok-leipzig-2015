@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             'data/friendlist',
             'data/movie',
             'data/music',
+            'data/sport',
             'data/place',
             'data/place-location-image',
             'debug',

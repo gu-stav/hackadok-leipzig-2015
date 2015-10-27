@@ -175,15 +175,16 @@ define([
     },
     {
       "id": "5",
-      "data": "music",
+      "data": "sport",
       "before_delay": 0,
       "after_delay": 0,
       "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
       "id": "6",
-      "data": "place",
+      "data": "sport",
       "before_delay": 0,
       "after_delay": 0,
       "before_offset": 2200,
