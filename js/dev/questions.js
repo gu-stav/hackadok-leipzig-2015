@@ -118,18 +118,18 @@ define([
   };
 
   return [
-    {
-      "id": "1",
-      "data": "place",
-      "before_delay": 500,
-      "after_delay": 0,
-    },
+    // {
+    //   "id": "1",
+    //   "data": "place",
+    //   "before_delay": 500,
+    //   "after_delay": 0,
+    // },
     {
       "id": "2",
       "data": "birthday",
       "before_delay": 500,
       "after_delay": 0,
-      "before_offset": 500,
+      "before_offset": 2200,
       "before": prepareStage,
       "content": contentRenderer
     },
@@ -138,6 +138,7 @@ define([
       "data": "book",
       "before_delay": 0,
       "after_delay": 0,
+      "before": prepareStage,
       "content": modifyContentRenderer,
     },
     {
@@ -145,13 +146,15 @@ define([
       "data": "movie",
       "before_delay": 0,
       "after_delay": 0,
+      "before": prepareStage,
       "content": modifyContentRenderer,
     },
     {
       "id": "5",
-      "data": "place",
+      "data": "music",
       "before_delay": 0,
       "after_delay": 0,
+      "before": prepareStage,
       "content": modifyContentRenderer,
     },
     {
@@ -159,6 +162,9 @@ define([
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
+      "before_offset": 2200,
+      "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
@@ -166,7 +172,8 @@ define([
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
-      "content": modifyContentRenderer,
+      "before": prepareStage,
+      "content": contentRenderer,
     },
     {
       "id": "8",
@@ -214,9 +221,27 @@ define([
       "id": "14",
       "data": "place",
       "before_delay": 0,
-      "after_delay": 3000,
+      "after_delay": 0,
       "content": modifyContentRenderer,
       "after": cleanupStage,
+    },
+    {
+      "id": "15",
+      "data": "place",
+      "before_delay": 0,
+      "after_delay": 3000,
+    },
+    {
+      "id": "16",
+      "data": "place",
+      "before_delay": 0,
+      "after_delay": 0,
+    },
+    {
+      "id": "17",
+      "data": "place",
+      "before_delay": 0,
+      "after_delay": 0,
     },
   ];
 });

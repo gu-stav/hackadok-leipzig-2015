@@ -127,6 +127,8 @@ define([
       });
     };
 
+    $('.background-music').get(0).play();
+
     api.fetch('/me/taggable_friends')
       .then(multiplyFriends)
       .then(storeFriends)
