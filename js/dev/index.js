@@ -43,7 +43,7 @@ require([
         timeline.add(frame);
 
         /* Activate first frame */
-        if(index === 1) {
+        if(index === 0) {
           frame.activate();
         }
 

@@ -40,10 +40,15 @@ define([
         if(item.image) {
           var $image = $el.children('.eye-fragment__content').children('img');
           var srcAttr = $image.attr('src');
+          var fileExtension = '.png';
+
+          if(item.image && item.image.indexOf('.') !== -1) {
+            fileExtension = '';
+          }
 
           $image
             .attr({
-              src: '/assets/fragment/' + item.image + '.png',
+              src: '/assets/fragment/' + item.image + fileExtension,
             })
             .data('origimage', srcAttr);
         }
@@ -141,12 +146,42 @@ define([
     });
   };
 
+  var animateFace = function() {
+    var $faceImage = $('.fly-face__seperator');
+    var changeFace = function(index) {
+      $faceImage.attr({
+        src: 'assets/' + index + '.png',
+      });
+    };
+
+    changeFace('eye-seperator-2');
+
+    setTimeout(function() {
+      changeFace('eye-seperator-3');
+      setTimeout(function() {
+        changeFace('eye-seperator');
+        setTimeout(function() {
+          changeFace('eye-seperator-2');
+          setTimeout(function() {
+            changeFace('eye-seperator-3');
+            setTimeout(function() {
+              changeFace('eye-seperator');
+            }, 450);
+          }, 450);
+        }, 450);
+      }, 450);
+    }, 450);
+  };
+
   return [
     {
       "id": "1",
       "data": "place",
       "before_delay": 500,
       "after_delay": 0,
+      "before": function(eyeLeft, eyeRight, id) {
+        animateFace();
+      },
     },
     {
       "id": "2",
@@ -187,7 +222,7 @@ define([
       "data": "sport",
       "before_delay": 0,
       "after_delay": 0,
-      "before_offset": 2200,
+      "before_offset": 1200,
       "before": prepareStage,
       "after": cleanupStage,
       "content": modifyContentRenderer,
@@ -197,28 +232,34 @@ define([
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
-      "before": prepareStage,
       "content": contentRenderer,
     },
     {
       "id": "8",
-      "data": "place",
+      "data": "money",
       "before_delay": 0,
       "after_delay": 0,
+      "before_offset": 6500,
+      "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
       "id": "9",
-      "data": "place",
+      "data": "time",
       "before_delay": 0,
       "after_delay": 0,
+      "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
       "id": "10",
-      "data": "place",
-      "before_delay": 0,
+      "data": "with",
+      "before_delay": 1000,
       "after_delay": 0,
+      "before": prepareStage,
+      "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
@@ -240,30 +281,36 @@ define([
       "data": "place-location-image",
       "before_delay": 0,
       "after_delay": 0,
-      "before_offset": 1100,
+      "before_offset": 0,
       "before": prepareStage,
       "after": cleanupStage,
       "content": modifyContentRenderer,
     },
     {
       "id": "14",
-      "data": "place",
+      "data": "political-view",
       "before_delay": 0,
       "after_delay": 0,
+      "before_offset": 8200,
       "content": contentRenderer,
       "after": cleanupStage,
     },
     {
       "id": "15",
-      "data": "place",
+      "data": "political-view",
       "before_delay": 0,
       "after_delay": 0,
+      "before": prepareStage,
     },
     {
       "id": "16",
       "data": "place",
       "before_delay": 0,
       "after_delay": 0,
+      "before": function(eyeLeft, eyeRight, id) {
+        animateFace();
+        prepareStage(eyeLeft, eyeRight, id);
+      },
     },
     {
       "id": "17",

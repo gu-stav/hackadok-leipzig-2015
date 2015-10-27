@@ -88,11 +88,15 @@ define([
           if(before) {
             setTimeout(function() {
               before(eyeLeft, eyeRight, id);
-            }, before_offset);
-          }
 
-          if(content) {
-            content(eyeLeft, eyeRight, data, id);
+              if(content) {
+                content(eyeLeft, eyeRight, data, id);
+              }
+            }, before_offset);
+          } else {
+            if(content) {
+              content(eyeLeft, eyeRight, data, id);
+            }
           }
 
           $player

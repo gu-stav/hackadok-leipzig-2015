@@ -5,7 +5,7 @@ define([
 ], function(Fragment, $, _) {
   var Eye = function(options) {
     this.fragmentCount = 240;
-    this.rows = 13;
+    this.rows = 15;
     this.fragments = [];
     this.$el = $('<div class="eye" />');
     this.options = options;
