@@ -34,6 +34,7 @@ module.exports = function(grunt) {
             'frame-1',
             'frame-2',
             'frame-3',
+            'frame-4',
             'index',
             'questions',
           ],

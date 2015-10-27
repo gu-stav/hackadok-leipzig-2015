@@ -12,19 +12,23 @@ define([
   Frame.prototype.constructor = BaseFrame;
 
   Frame.prototype.activate = function() {
-    var self = this;
-    var $outro = this.$el.find('.outro');
-    var $video = $outro.find('.outro__video');
 
-    if($video.length) {
-      $video.get(0).play();
-
-      $video.on('ended', function() {
-        setTimeout(function() {
-          self.$el.trigger('end.frame');
-        }, 200);
+    api.login()
+      .then(function() {
+        FB.ui(
+          {
+            method: 'share',
+            href: 'https://immersion.media.mit.edu',
+          },
+          function(response) {
+            if (response && !response.error_message) {
+              alert('Posting completed.');
+            } else {
+              alert('Error while posting.');
+            }
+          }
+        );
       });
-    }
 
     return BaseFrame.prototype.activate.apply(this, arguments);
   };
