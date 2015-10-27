@@ -114,9 +114,6 @@ define([
             .appendTo('body');
         };
 
-        console.log('Sound ID', id);
-        console.log('Require Dataset', dataset);
-
         require([
           'data/' + dataset,
         ], function(data) {
