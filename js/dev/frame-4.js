@@ -12,6 +12,7 @@ define([
   Frame.prototype.constructor = BaseFrame;
 
   Frame.prototype.activate = function() {
+    var self = this;
 
     api.login()
       .then(function() {
@@ -22,9 +23,7 @@ define([
           },
           function(response) {
             if (response && !response.error_message) {
-              alert('Posting completed.');
-            } else {
-              alert('Error while posting.');
+              self.$el.trigger('end.frame');
             }
           }
         );
